@@ -33,11 +33,20 @@ public class RestaurantsService
     return restaurants.FindAll(restaurant => restaurant.CreatorId == userId || restaurant.IsShutdown == false);
   }
 
-  internal Restaurant GetRestaurantById(int restaurantId)
+  private Restaurant GetRestaurantById(int restaurantId)
   {
     Restaurant restaurant = _repository.GetById(restaurantId);
 
     if (restaurant == null) throw new Exception($"Invalid restaurant id: {restaurantId}");
+
+    return restaurant;
+  }
+
+  internal Restaurant GetRestaurantById(int restaurantId, string userId)
+  {
+    Restaurant restaurant = GetRestaurantById(restaurantId); // private method
+
+    if (restaurant.CreatorId != userId && restaurant.IsShutdown == true) throw new Exception($"Invalid restaurant id: {restaurantId} 😉");
 
     return restaurant;
   }
