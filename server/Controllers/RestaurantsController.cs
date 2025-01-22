@@ -31,12 +31,15 @@ public class RestaurantsController : ControllerBase
     }
   }
 
+  // NOTE not an authorized route
   [HttpGet]
-  public ActionResult<List<Restaurant>> GetAllRestaurants()
+  public async Task<ActionResult<List<Restaurant>>> GetAllRestaurants()
   {
     try
     {
-      List<Restaurant> restaurants = _restaurantsService.GetAllRestaurants();
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      // NOTE since this route is not authorized, userInfo will be null if the user is not logged in
+      List<Restaurant> restaurants = _restaurantsService.GetAllRestaurants(userInfo?.Id); // pass down null if user is not logged in instead of breaking
       return Ok(restaurants);
     }
     catch (Exception exception)
