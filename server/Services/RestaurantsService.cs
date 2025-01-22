@@ -47,4 +47,15 @@ public class RestaurantsService
 
     return restaurant;
   }
+
+  internal string DeleteRestaurant(int restaurantId, string userId)
+  {
+    Restaurant restaurant = GetRestaurantById(restaurantId);
+
+    if (restaurant.CreatorId != userId) throw new Exception("YOU CANNOT DELETE ANOTHER USER'S RESTAURANT, AMIGO");
+
+    _repository.Delete(restaurantId);
+
+    return $"Deleted {restaurant.Name}";
+  }
 }

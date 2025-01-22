@@ -90,7 +90,11 @@ public class RestaurantsRepository : IRepository<Restaurant>
 
   public void Delete(int id)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM restaurants WHERE id = @id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { id });
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} WERE DELETED AND THAT IS BAD");
   }
 }
 
