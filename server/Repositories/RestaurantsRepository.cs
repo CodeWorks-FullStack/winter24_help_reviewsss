@@ -1,5 +1,4 @@
 
-
 namespace help_reviews.Repositories;
 
 public class RestaurantsRepository
@@ -50,6 +49,25 @@ public class RestaurantsRepository
     }).ToList();
 
     return restaurants;
+  }
+
+  internal Restaurant GetRestaurantById(int restaurantId)
+  {
+    string sql = @"
+    SELECT
+    restaurants.*,
+    accounts.*
+    FROM restaurants
+    JOIN accounts ON accounts.id = restaurants.creator_id
+    WHERE restaurants.id = @restaurantId;";
+
+    Restaurant restaurant = _db.Query(sql, (Restaurant restaurant, Profile account) =>
+    {
+      restaurant.Owner = account;
+      return restaurant;
+    }, new { restaurantId }).SingleOrDefault();
+
+    return restaurant;
   }
 }
 
