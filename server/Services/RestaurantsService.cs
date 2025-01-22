@@ -23,7 +23,7 @@ public class RestaurantsService
     return restaurants;
   }
 
-  // NOTE this is an overload. two methods can share the same name, but different methods can run based on types of parameters, number of parameters
+  // NOTE this is an overload. two methods can share the same name, but different methods can run based on types of parameters, number of parameters, or a combination of the two
   internal List<Restaurant> GetAllRestaurants(string userId)
   {
     List<Restaurant> restaurants = GetAllRestaurants(); // calls the private method
@@ -42,6 +42,7 @@ public class RestaurantsService
     return restaurant;
   }
 
+  // OVERLOAD
   internal Restaurant GetRestaurantById(int restaurantId, string userId)
   {
     Restaurant restaurant = GetRestaurantById(restaurantId); // private method

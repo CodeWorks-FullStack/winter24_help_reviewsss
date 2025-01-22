@@ -37,6 +37,7 @@ public class RestaurantsController : ControllerBase
   {
     try
     {
+      // even if the route is not authorized, we can still attempt to see who is making the request
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       // NOTE since this route is not authorized, userInfo will be null if the user is not logged in
       List<Restaurant> restaurants = _restaurantsService.GetAllRestaurants(userInfo?.Id); // pass down null if user is not logged in instead of breaking
