@@ -1,7 +1,9 @@
 
+using help_reviews.Interfaces;
+
 namespace help_reviews.Repositories;
 
-public class RestaurantsRepository
+public class RestaurantsRepository : IRepository<Restaurant>
 {
 
   public RestaurantsRepository(IDbConnection db)
@@ -10,7 +12,7 @@ public class RestaurantsRepository
   }
   private readonly IDbConnection _db;
 
-  internal Restaurant CreateRestaurant(Restaurant restaurantData)
+  public Restaurant Create(Restaurant restaurantData)
   {
     string sql = @"
     INSERT INTO
@@ -33,7 +35,7 @@ public class RestaurantsRepository
     return restaurant;
   }
 
-  internal List<Restaurant> GetAllRestaurants()
+  public List<Restaurant> GetAll()
   {
     string sql = @"
     SELECT
@@ -51,7 +53,7 @@ public class RestaurantsRepository
     return restaurants;
   }
 
-  internal Restaurant GetRestaurantById(int restaurantId)
+  public Restaurant GetById(int restaurantId)
   {
     string sql = @"
     SELECT
@@ -68,6 +70,27 @@ public class RestaurantsRepository
     }, new { restaurantId }).SingleOrDefault();
 
     return restaurant;
+  }
+
+  public void Update(Restaurant updateData)
+  {
+    string sql = @"
+    UPDATE restaurants
+    SET
+    name = @Name,
+    description = @Description,
+    img_url = @ImgUrl,
+    is_shutdown = @IsShutdown
+    WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, updateData);
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} WERE UPDATED AND THAT IS BAD");
+  }
+
+  public void Delete(int id)
+  {
+    throw new NotImplementedException();
   }
 }
 

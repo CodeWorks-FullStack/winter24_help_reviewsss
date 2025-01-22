@@ -8,7 +8,7 @@ public class Restaurant : RepoItem<int>
   [Url, MaxLength(3000)] public string ImgUrl { get; set; }
   [MaxLength(2000)] public string Description { get; set; }
   public int Visits { get; set; }
-  public bool IsShutdown { get; set; }
+  public bool? IsShutdown { get; set; } //nullable
   public string CreatorId { get; set; }
   public Profile Owner { get; set; }
 }

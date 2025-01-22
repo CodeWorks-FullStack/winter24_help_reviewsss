@@ -1,3 +1,5 @@
+using help_reviews.Interfaces;
+
 namespace help_reviews.Controllers;
 
 [ApiController]
@@ -57,4 +59,19 @@ public class RestaurantsController : ControllerBase
     }
   }
 
+  [Authorize]
+  [HttpPut("{restaurantId}")]
+  public async Task<ActionResult<Restaurant>> UpdateRestaurant(int restaurantId, [FromBody] Restaurant restaurantData)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Restaurant restaurant = _restaurantsService.UpdateRestaurant(restaurantId, userInfo.Id, restaurantData);
+      return Ok(restaurant);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }
