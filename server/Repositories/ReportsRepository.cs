@@ -34,6 +34,26 @@ public class ReportsRepository : IRepository<Report>
     return report;
   }
 
+  internal List<Report> GetReportsByRestaurantId(int restaurantId)
+  {
+    string sql = @"
+    SELECT
+    reports.*,
+    accounts.*
+    FROM reports
+    JOIN accounts ON accounts.id = reports.creator_id
+    WHERE reports.restaurant_id = @restaurantId
+    ORDER BY reports.created_at DESC;";
+
+    List<Report> reports = _db.Query(sql, (Report report, Profile account) =>
+    {
+      report.Creator = account;
+      return report;
+    }, new { restaurantId }).ToList();
+
+    return reports;
+  }
+
   public void Delete(int id)
   {
     throw new NotImplementedException();
@@ -53,5 +73,7 @@ public class ReportsRepository : IRepository<Report>
   {
     throw new NotImplementedException();
   }
+
+
 }
 
