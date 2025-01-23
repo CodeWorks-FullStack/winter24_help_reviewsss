@@ -25,7 +25,6 @@ async function createReport() {
       score: 3,
       restaurantId: 0,
       imgUrl: ''
-
     }
     Modal.getInstance('#reportModal').hide()
   } catch (error) {
@@ -73,7 +72,8 @@ async function createReport() {
     </div>
     <div class="d-flex justify-content-end gap-2">
       <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-success">Create Report</button>
+      <button :disabled="editableReportData.restaurantId == 0" type="submit" class="btn btn-success">Create
+        Report</button>
     </div>
   </form>
 </template>
