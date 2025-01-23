@@ -53,6 +53,20 @@ public class RestaurantsService
     return restaurant;
   }
 
+  internal Restaurant IncrementVisits(int restaurantId, string userId)
+  {
+    Restaurant restaurant = GetRestaurantById(restaurantId, userId);
+
+    if (restaurant.CreatorId != userId)
+    {
+      restaurant.Visits++;
+      // DON'T FORGET TO UPDATE THE DATABASE
+      _repository.IncrementVisits(restaurant);
+    }
+
+    return restaurant;
+  }
+
   internal Restaurant UpdateRestaurant(int restaurantId, string userId, Restaurant restaurantData)
   {
     Restaurant restaurant = GetRestaurantById(restaurantId);
