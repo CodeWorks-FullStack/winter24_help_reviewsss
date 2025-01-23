@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { reportsService } from '@/services/ReportsService.js';
 import { restaurantsService } from '@/services/RestaurantsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -14,6 +15,7 @@ const router = useRouter() // tool to change the route
 
 watch(route, () => {
   getRestaurantById()
+  getReportsByRestaurantId()
 }, { immediate: true })
 
 async function getRestaurantById() {
@@ -48,6 +50,16 @@ async function toggleShutdownStatus() {
   } catch (error) {
     Pop.meow(error)
     logger.error('[UPDATING RESTAURANT BY ID]', error.message)
+  }
+}
+
+async function getReportsByRestaurantId() {
+  try {
+    const restaurantId = route.params.restaurantId
+    await reportsService.getReportsByRestaurantId(restaurantId)
+  } catch (error) {
+    Pop.meow(error)
+    logger.error('[GETTING REPORTS]', error.message)
   }
 }
 </script>
