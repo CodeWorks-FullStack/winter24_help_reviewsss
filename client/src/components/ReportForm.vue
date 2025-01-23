@@ -6,7 +6,7 @@ import Pop from '@/utils/Pop.js';
 import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
 
-const restaurants = computed(() => AppState.restaurants)
+const restaurants = computed(() => AppState.restaurants.filter(restaurant => restaurant.creatorId != AppState.account?.id))
 
 const editableReportData = ref({
   title: '',
