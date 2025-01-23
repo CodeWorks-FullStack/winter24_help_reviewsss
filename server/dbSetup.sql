@@ -35,6 +35,7 @@ CREATE TABLE reports(
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
+CREATE VIEW restaurants_with_report_count_view AS
 SELECT 
 restaurants.*,
 COUNT(reports.id) AS report_count 
