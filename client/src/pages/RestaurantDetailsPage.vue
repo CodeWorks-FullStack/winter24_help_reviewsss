@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import ReportCard from '@/components/ReportCard.vue';
 import { reportsService } from '@/services/ReportsService.js';
 import { restaurantsService } from '@/services/RestaurantsService.js';
 import { logger } from '@/utils/Logger.js';
@@ -9,6 +10,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 const restaurant = computed(() => AppState.activeRestaurant)
 const account = computed(() => AppState.account)
+const reports = computed(() => AppState.reports)
 
 const route = useRoute() // information about the route
 const router = useRouter() // tool to change the route
@@ -68,6 +70,7 @@ async function getReportsByRestaurantId() {
 <template>
   <div class="p-3">
     <div v-if="restaurant" class="container-fluid">
+      <!-- ANCHOR restaurant details -->
       <section class="row">
         <div class="col-12">
           <div class="d-md-flex justify-content-between">
@@ -107,6 +110,17 @@ async function getReportsByRestaurantId() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <!-- ANCHOR reports -->
+      <section class="row mt-3 justify-content-center">
+        <div class="col-md-10">
+          <h2>
+            <b>Reports for <span class="text-success">{{ restaurant.name }}</span></b>
+          </h2>
+        </div>
+        <div v-for="report in reports" :key="'report' + report.id" class="col-md-10">
+          <ReportCard :report="report" />
         </div>
       </section>
     </div>
