@@ -31,8 +31,4 @@ img {
   object-fit: cover;
   object-position: center;
 }
-
-.restaurant-card {
-  box-shadow: 0 3px 10px rgb(81, 81, 81);
-}
 </style>
