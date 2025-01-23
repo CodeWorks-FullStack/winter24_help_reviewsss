@@ -11,4 +11,5 @@ public class Restaurant : RepoItem<int>
   public bool? IsShutdown { get; set; } //nullable
   public string CreatorId { get; set; }
   public Profile Owner { get; set; }
+  public int ReportCount { get; set; }
 }

@@ -38,12 +38,14 @@ public class RestaurantsRepository : IRepository<Restaurant>
   public List<Restaurant> GetAll()
   {
     string sql = @"
-    SELECT
+    SELECT 
     restaurants.*,
+    COUNT(reports.id) AS report_count,
     accounts.*
     FROM restaurants
     JOIN accounts ON accounts.id = restaurants.creator_id
-    ORDER BY restaurants.created_at ASC;";
+    LEFT JOIN reports ON restaurants.id = reports.restaurant_id
+    GROUP BY(restaurants.id);";
 
     List<Restaurant> restaurants = _db.Query(sql, (Restaurant restaurant, Profile account) =>
     {
