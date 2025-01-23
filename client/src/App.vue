@@ -21,8 +21,10 @@ import SideBar from './components/SideBar.vue';
       </div>
     </div>
   </main>
-  <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+  <footer class="bg-success text-light">
+    <marquee scrollamount="12" direction="right">
+      <i class="mdi mdi-rodent fs-2"></i>
+    </marquee>
   </footer>
 </template>
 
@@ -31,11 +33,5 @@ import SideBar from './components/SideBar.vue';
 
 :root {
   --main-height: calc(100vh - 32px - 64px);
-}
-
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
 }
 </style>
