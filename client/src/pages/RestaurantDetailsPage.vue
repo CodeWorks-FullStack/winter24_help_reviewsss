@@ -30,16 +30,24 @@ async function getRestaurantById() {
 async function deleteRestaurant() {
   try {
     const confirmed = await Pop.confirm(`Are you sure you want to delete ${restaurant.value.name}?`)
-
     if (!confirmed) return
-
     const restaurantId = route.params.restaurantId
     await restaurantsService.deleteRestaurant(restaurantId)
-
     router.push({ name: 'Home' })
   } catch (error) {
     Pop.meow(error)
-    logger.error('[GETTING RESTAURANT BY ID]', error.message)
+    logger.error('[DELETING RESTAURANT BY ID]', error.message)
+  }
+}
+
+async function toggleShutdownStatus() {
+  try {
+    const updateData = { isShutdown: !restaurant.value.isShutdown }
+    const restaurantId = route.params.restaurantId
+    await restaurantsService.updateRestaurant(restaurantId, updateData)
+  } catch (error) {
+    Pop.meow(error)
+    logger.error('[UPDATING RESTAURANT BY ID]', error.message)
   }
 }
 </script>
@@ -75,7 +83,7 @@ async function deleteRestaurant() {
                   </div>
                 </div>
                 <div v-if="restaurant.creatorId == account.id" class="d-flex gap-5">
-                  <button class="btn btn-success fs-5">
+                  <button @click="toggleShutdownStatus()" class="btn btn-success fs-5">
                     <i class="mdi mdi-door-open"></i>
                     Re-Open
                   </button>
