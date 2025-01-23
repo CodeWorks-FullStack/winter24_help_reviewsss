@@ -12,7 +12,11 @@ class ReportsService {
   async createReport(reportData) {
     const response = await api.post('api/reports', reportData)
     logger.log('CREATED REPORT 📃', response.data)
-    AppState.reports.unshift(new Report(response.data))
+    const report = new Report(response.data)
+
+    if (report.restaurantId != AppState.activeRestaurant.id) return
+
+    AppState.reports.unshift(report)
   }
 }
 
