@@ -3,6 +3,7 @@ import { AppState } from '@/AppState.js';
 import { reportsService } from '@/services/ReportsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
+import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
 
 const restaurants = computed(() => AppState.restaurants)
@@ -17,6 +18,13 @@ const editableReportData = ref({
 async function createReport() {
   try {
     await reportsService.createReport(editableReportData.value)
+    editableReportData.value = {
+      title: '',
+      body: '',
+      score: 3,
+      restaurantId: 0
+    }
+    Modal.getInstance('#reportModal').hide()
   } catch (error) {
     Pop.meow(error)
     logger.error('[CREATING REPORT]', error.message)
