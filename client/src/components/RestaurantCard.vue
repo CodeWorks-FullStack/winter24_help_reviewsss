@@ -10,12 +10,14 @@ defineProps({
 <template>
   <RouterLink :to="{ name: 'RestaurantDetails', params: { restaurantId: restaurant.id } }">
     <div class="restaurant-card m-2">
-      <img :src="restaurant.imgUrl" :alt="'A picture of ' + restaurant.name">
+      <img :src="restaurant.imgUrl" :alt="'A picture of ' + restaurant.name"
+        :class="{ 'gray-out': restaurant.isShutdown }">
       <div class="p-3">
-        <b class="text-success">{{ restaurant.name }}</b>
+        <b :class="restaurant.isShutdown ? 'text-danger' : 'text-success'">{{ restaurant.name }}</b>
         <p>{{ restaurant.description }}</p>
         <div class="d-flex align-items-center">
-          <i class="mdi mdi-account-multiple-outline text-success fs-2"></i>
+          <i class="mdi mdi-account-multiple-outline fs-2"
+            :class="restaurant.isShutdown ? 'text-danger' : 'text-success'"></i>
           <span><b>{{ restaurant.visits }}</b> recent visits</span>
         </div>
       </div>
@@ -30,5 +32,9 @@ img {
   height: 45dvh;
   object-fit: cover;
   object-position: center;
+}
+
+.gray-out {
+  filter: grayscale(1);
 }
 </style>
