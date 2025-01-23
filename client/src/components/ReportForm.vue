@@ -12,7 +12,7 @@ const editableReportData = ref({
   title: '',
   body: '',
   score: 3,
-  restaurantId: 0,
+  restaurantId: '',
   imgUrl: null
 })
 
@@ -24,7 +24,7 @@ async function createReport() {
       title: '',
       body: '',
       score: 3,
-      restaurantId: 0,
+      restaurantId: '',
       imgUrl: ''
     }
     Modal.getInstance('#reportModal').hide()
@@ -40,7 +40,7 @@ async function createReport() {
   <form @submit.prevent="createReport()">
     <div class="mb-3">
       <select v-model="editableReportData.restaurantId" class="form-select" aria-label="Pick a restaurant" required>
-        <option :value="0" disabled selected>Select a restaurant</option>
+        <option value="" disabled selected>Select a restaurant</option>
         <option v-for="restaurant in restaurants" :key="'reportFrom' + restaurant.id" :value="restaurant.id">
           {{ restaurant.name }}
         </option>
@@ -72,9 +72,12 @@ async function createReport() {
       <div id="reportBodyHelp" class="form-text">Make it juicy...</div>
     </div>
     <div class="d-flex justify-content-end gap-2">
-      <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-      <button :disabled="editableReportData.restaurantId == 0" type="submit" class="btn btn-success">Create
-        Report</button>
+      <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+        Close
+      </button>
+      <button type="submit" class="btn btn-success">
+        Create Report
+      </button>
     </div>
   </form>
 </template>
