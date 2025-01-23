@@ -16,10 +16,16 @@ defineProps({
       <div class="p-3">
         <b :class="restaurant.isShutdown ? 'text-danger' : 'text-success'">{{ restaurant.name }}</b>
         <p>{{ restaurant.description }}</p>
-        <div class="d-flex align-items-center">
-          <i class="mdi mdi-account-multiple-outline fs-2"
-            :class="restaurant.isShutdown ? 'text-danger' : 'text-success'"></i>
-          <span><b>{{ restaurant.visits }}</b> recent visits</span>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-account-multiple-outline fs-2"
+              :class="restaurant.isShutdown ? 'text-danger' : 'text-success'"></i>
+            <span><b>{{ restaurant.visits }}</b> recent visits</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-file-document fs-2" :class="restaurant.isShutdown ? 'text-danger' : 'text-success'"></i>
+            <span><b>{{ restaurant.reportCount }}</b> reports</span>
+          </div>
         </div>
       </div>
     </div>

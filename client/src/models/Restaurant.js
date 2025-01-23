@@ -11,5 +11,6 @@ export class Restaurant extends APIItem {
     this.isShutdown = data.isShutdown
     this.creatorId = data.creatorId
     this.owner = new Profile(data.owner)
+    this.reportCount = data.reportCount
   }
 }
