@@ -21,8 +21,11 @@ public class ReportsService
     return report;
   }
 
-  internal List<Report> GetReportsByRestaurantId(int restaurantId)
+  internal List<Report> GetReportsByRestaurantId(int restaurantId, string userId)
   {
+    // NOTE just need the checks to run in the other service
+    _restaurantsService.GetRestaurantById(restaurantId, userId);
+
     List<Report> reports = _reportsRepository.GetReportsByRestaurantId(restaurantId);
     return reports;
   }
