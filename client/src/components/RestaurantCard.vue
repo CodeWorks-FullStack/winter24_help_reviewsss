@@ -8,7 +8,8 @@ defineProps({
 
 
 <template>
-  <RouterLink :to="{ name: 'RestaurantDetails', params: { restaurantId: restaurant.id } }">
+  <RouterLink :to="{ name: 'RestaurantDetails', params: { restaurantId: restaurant.id } }"
+    :title="`Go to ${restaurant.name}'s page`">
     <div class="restaurant-card m-2">
       <img :src="restaurant.imgUrl" :alt="'A picture of ' + restaurant.name"
         :class="{ 'gray-out': restaurant.isShutdown }">
