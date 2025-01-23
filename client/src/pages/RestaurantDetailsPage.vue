@@ -26,6 +26,22 @@ async function getRestaurantById() {
     router.push({ name: 'Home' })
   }
 }
+
+async function deleteRestaurant() {
+  try {
+    const confirmed = await Pop.confirm(`Are you sure you want to delete ${restaurant.value.name}?`)
+
+    if (!confirmed) return
+
+    const restaurantId = route.params.restaurantId
+    await restaurantsService.deleteRestaurant(restaurantId)
+
+    router.push({ name: 'Home' })
+  } catch (error) {
+    Pop.meow(error)
+    logger.error('[GETTING RESTAURANT BY ID]', error.message)
+  }
+}
 </script>
 
 
@@ -63,7 +79,7 @@ async function getRestaurantById() {
                     <i class="mdi mdi-door-open"></i>
                     Re-Open
                   </button>
-                  <button class="btn btn-danger fs-5">
+                  <button @click="deleteRestaurant()" class="btn btn-danger fs-5">
                     <i class="mdi mdi-delete-forever"></i>
                     Delete
                   </button>
@@ -73,6 +89,9 @@ async function getRestaurantById() {
           </div>
         </div>
       </section>
+    </div>
+    <div v-else>
+      <h1 class="text-center">Loading... <i class="mdi mdi-loading mdi-spin"></i></h1>
     </div>
   </div>
 </template>
