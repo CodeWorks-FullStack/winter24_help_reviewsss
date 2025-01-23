@@ -34,3 +34,4 @@ CREATE TABLE reports(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
+

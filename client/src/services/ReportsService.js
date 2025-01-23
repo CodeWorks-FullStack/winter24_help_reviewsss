@@ -5,6 +5,7 @@ import { Report } from "@/models/Report.js"
 
 class ReportsService {
   async getReportsByRestaurantId(restaurantId) {
+    AppState.reports = []
     const response = await api.get(`api/restaurants/${restaurantId}/reports`)
     logger.log('GOT REPORTS 📃📃📃📃', response.data)
     AppState.reports = response.data.map(pojo => new Report(pojo))

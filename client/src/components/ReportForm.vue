@@ -13,11 +13,12 @@ const editableReportData = ref({
   body: '',
   score: 3,
   restaurantId: 0,
-  imgUrl: ''
+  imgUrl: null
 })
 
 async function createReport() {
   try {
+
     await reportsService.createReport(editableReportData.value)
     editableReportData.value = {
       title: '',

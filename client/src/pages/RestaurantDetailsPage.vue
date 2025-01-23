@@ -94,7 +94,7 @@ async function getReportsByRestaurantId() {
                   </div>
                   <div class="d-flex align-items-center">
                     <i class="mdi mdi-file-document fs-1 text-success"></i>
-                    <span><b>0</b> reports</span>
+                    <span><b>{{ reports.length }}</b> reports</span>
                   </div>
                 </div>
                 <div v-if="restaurant.creatorId == account.id" class="d-flex justify-content-between gap-5">
