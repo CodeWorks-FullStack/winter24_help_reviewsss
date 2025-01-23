@@ -19,7 +19,7 @@ import ReportModal from './ReportModal.vue';
       <b>food reports</b>
     </div>
     <div>
-      <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#reportModal">
+      <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#reportModal">
         Report
       </button>
     </div>
