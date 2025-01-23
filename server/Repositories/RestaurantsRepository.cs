@@ -42,7 +42,8 @@ public class RestaurantsRepository : IRepository<Restaurant>
     restaurants.*,
     accounts.*
     FROM restaurants
-    JOIN accounts ON accounts.id = restaurants.creator_id;";
+    JOIN accounts ON accounts.id = restaurants.creator_id
+    ORDER BY restaurants.created_at ASC;";
 
     List<Restaurant> restaurants = _db.Query(sql, (Restaurant restaurant, Profile account) =>
     {
