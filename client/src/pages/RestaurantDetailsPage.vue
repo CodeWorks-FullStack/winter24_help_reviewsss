@@ -84,8 +84,8 @@ async function toggleShutdownStatus() {
                 </div>
                 <div v-if="restaurant.creatorId == account.id" class="d-flex gap-5">
                   <button @click="toggleShutdownStatus()" class="btn btn-success fs-5">
-                    <i class="mdi mdi-door-open"></i>
-                    Re-Open
+                    <i class="mdi" :class="restaurant.isShutdown ? 'mdi-door-open' : 'mdi-door-closed'"></i>
+                    {{ restaurant.isShutdown ? 'Re-Open' : 'Shut Down' }}
                   </button>
                   <button @click="deleteRestaurant()" class="btn btn-danger fs-5">
                     <i class="mdi mdi-delete-forever"></i>
