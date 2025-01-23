@@ -1,5 +1,8 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { reportsService } from '@/services/ReportsService.js';
+import { logger } from '@/utils/Logger.js';
+import Pop from '@/utils/Pop.js';
 import { computed, ref } from 'vue';
 
 const restaurants = computed(() => AppState.restaurants)
@@ -10,13 +13,22 @@ const editableReportData = ref({
   score: 3,
   restaurantId: 0
 })
+
+async function createReport() {
+  try {
+    await reportsService.createReport(editableReportData.value)
+  } catch (error) {
+    Pop.meow(error)
+    logger.error('[CREATING REPORT]', error.message)
+  }
+}
 </script>
 
 
 <template>
-  <form>
+  <form @submit.prevent="createReport()">
     <div class="mb-3">
-      <select v-model="editableReportData.restaurantId" class="form-select" aria-label="Pick a restaurant">
+      <select v-model="editableReportData.restaurantId" class="form-select" aria-label="Pick a restaurant" required>
         <option :value="0" disabled selected>Select a restaurant</option>
         <option v-for="restaurant in restaurants" :key="'reportFrom' + restaurant.id" :value="restaurant.id">
           {{ restaurant.name }}
