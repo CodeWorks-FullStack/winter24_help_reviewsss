@@ -12,7 +12,8 @@ const editableReportData = ref({
   title: '',
   body: '',
   score: 3,
-  restaurantId: 0
+  restaurantId: 0,
+  imgUrl: ''
 })
 
 async function createReport() {
@@ -22,7 +23,9 @@ async function createReport() {
       title: '',
       body: '',
       score: 3,
-      restaurantId: 0
+      restaurantId: 0,
+      imgUrl: ''
+
     }
     Modal.getInstance('#reportModal').hide()
   } catch (error) {
@@ -48,6 +51,12 @@ async function createReport() {
       <input v-model="editableReportData.title" type="text" class="form-control" id="reportTitle"
         placeholder="Report Title..." required maxlength="255">
       <div id="reportTitleHelp" class="form-text">Make it eye catching...</div>
+    </div>
+    <div class="mb-3">
+      <label for="reportTitle" class="form-label">Image of Report</label>
+      <input v-model="editableReportData.imgUrl" type="url" class="form-control" id="reportTitle"
+        placeholder="Report Image..." maxlength="3000">
+      <div id="reportTitleHelp" class="form-text">Make it a picture...</div>
     </div>
     <div class="mb-3">
       <label for="reportScore" class="form-label">

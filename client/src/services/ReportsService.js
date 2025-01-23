@@ -12,7 +12,7 @@ class ReportsService {
   async createReport(reportData) {
     const response = await api.post('api/reports', reportData)
     logger.log('CREATED REPORT 📃', response.data)
-    // TODO update appstate
+    AppState.reports.unshift(new Report(response.data))
   }
 }
 
