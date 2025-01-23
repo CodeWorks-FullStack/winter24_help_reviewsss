@@ -1,6 +1,9 @@
 <script setup>
+import { computed } from 'vue';
 import ReportModal from './ReportModal.vue';
+import { AppState } from '@/AppState.js';
 
+const account = computed(() => AppState.account)
 
 </script>
 
@@ -19,7 +22,8 @@ import ReportModal from './ReportModal.vue';
       <b>food reports</b>
     </div>
     <div>
-      <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#reportModal">
+      <button v-if="account" type="button" class="btn btn-success w-100" data-bs-toggle="modal"
+        data-bs-target="#reportModal">
         Report
       </button>
     </div>
