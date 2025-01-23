@@ -35,3 +35,9 @@ CREATE TABLE reports(
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
+SELECT 
+restaurants.*,
+COUNT(reports.id) AS report_count 
+FROM restaurants
+LEFT JOIN reports ON restaurants.id = reports.restaurant_id
+GROUP BY(restaurants.id); 
