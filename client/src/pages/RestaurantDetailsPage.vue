@@ -7,6 +7,7 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const restaurant = computed(() => AppState.activeRestaurant)
+const account = computed(() => AppState.account)
 
 const route = useRoute()
 
@@ -31,9 +32,9 @@ async function getRestaurantById() {
     <div v-if="restaurant" class="container-fluid">
       <section class="row">
         <div class="col-12">
-          <div class="d-flex justify-content-between">
+          <div class="d-md-flex justify-content-between">
             <h1 class="text-success"><b>{{ restaurant.name }}</b></h1>
-            <span class="fs-1 bg-danger text-light px-3">
+            <span v-if="restaurant.isShutdown" class="fs-1 bg-danger text-light px-3">
               <i class="mdi mdi-close-circle"></i>
               CURRENTLY SHUTDOWN
             </span>
@@ -41,6 +42,7 @@ async function getRestaurantById() {
           <div class="restaurant-card">
             <img :src="restaurant.imgUrl" :alt="'A picture of ' + restaurant.name" class="restaurant-img">
             <div class="p-3">
+              <p>Owned and operated by {{ restaurant.owner.name }}</p>
               <p class="mb-5">{{ restaurant.description }}</p>
               <div class="d-md-flex justify-content-between align-items-center">
                 <div class="d-flex gap-5">
@@ -53,7 +55,7 @@ async function getRestaurantById() {
                     <span><b>0</b> reports</span>
                   </div>
                 </div>
-                <div class="d-flex gap-5">
+                <div v-if="restaurant.creatorId == account.id" class="d-flex gap-5">
                   <button class="btn btn-success fs-5">
                     <i class="mdi mdi-door-open"></i>
                     Re-Open
