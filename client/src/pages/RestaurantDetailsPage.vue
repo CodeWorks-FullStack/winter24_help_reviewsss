@@ -3,17 +3,18 @@ import { AppState } from '@/AppState.js';
 import { restaurantsService } from '@/services/RestaurantsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const restaurant = computed(() => AppState.activeRestaurant)
 const account = computed(() => AppState.account)
 
-const route = useRoute()
+const route = useRoute() // information about the route
+const router = useRouter() // tool to change the route
 
-onMounted(() => {
+watch(route, () => {
   getRestaurantById()
-})
+}, { immediate: true })
 
 async function getRestaurantById() {
   try {
@@ -22,6 +23,7 @@ async function getRestaurantById() {
   } catch (error) {
     Pop.meow(error)
     logger.error('[GETTING RESTAURANT BY ID]', error.message)
+    router.push({ name: 'Home' })
   }
 }
 </script>
@@ -40,7 +42,8 @@ async function getRestaurantById() {
             </span>
           </div>
           <div class="restaurant-card">
-            <img :src="restaurant.imgUrl" :alt="'A picture of ' + restaurant.name" class="restaurant-img">
+            <img :src="restaurant.imgUrl" :alt="'A picture of ' + restaurant.name" class="restaurant-img"
+              :class="{ 'gray-out': restaurant.isShutdown }">
             <div class="p-3">
               <p>Owned and operated by {{ restaurant.owner.name }}</p>
               <p class="mb-5">{{ restaurant.description }}</p>

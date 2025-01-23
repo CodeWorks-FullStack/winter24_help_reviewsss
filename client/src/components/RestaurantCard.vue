@@ -33,8 +33,4 @@ img {
   object-fit: cover;
   object-position: center;
 }
-
-.gray-out {
-  filter: grayscale(1);
-}
 </style>
