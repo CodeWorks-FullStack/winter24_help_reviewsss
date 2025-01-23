@@ -15,7 +15,7 @@ public class ReportsService
     // NOTE this will also check to see if the restaurant is shutdown and if I own it!
     Restaurant restaurant = _restaurantsService.GetRestaurantById(reportData.RestaurantId, reportData.CreatorId);
 
-    if (restaurant.CreatorId == reportData.CreatorId) throw new Exception($"YOU OWN THE {restaurant.Name}, {restaurant.Owner.Name}! YOU CANNOT LEAVE A REPORT FOR YOUR OWN RESTAURANT, SILLY GOOSE!");
+    if (restaurant.CreatorId == reportData.CreatorId) throw new Exception($"YOU OWN THE {restaurant.Name}, {restaurant.Owner.Name}! YOU CANNOT LEAVE A REPORT FOR YOUR OWN RESTAURANT, SILLY GOOSE!".ToUpper());
 
     Report report = _reportsRepository.Create(reportData);
     return report;
