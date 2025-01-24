@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS accounts(
   picture VARCHAR(255) COMMENT 'User Picture'
 ) default charset utf8mb4 COMMENT '';
 
+ALTER TABLE accounts ADD COLUMN likes_cheese BOOL DEFAULT true;
 
 CREATE TABLE restaurants(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
